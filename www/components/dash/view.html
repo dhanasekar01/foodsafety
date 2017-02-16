@@ -1,0 +1,363 @@
+﻿<div data-role="view" data-title="SPARK" data-layout="main-nonav" data-show="app.dash.onShow" data-after-show="app.dash.afterShow" data-model="app.dash" id="dashScreen" class="screen">
+    <header class="header">
+        <ul class="nav nav-list pull-left">
+            <li>
+                <a class="menu-toggle" href="#menu">
+                    <span class="access-hide">Menu</span>
+                    <span class="icon icon-menu icon-lg"></span>
+                    <span class="header-close icon icon-close icon-lg"></span>
+                </a>
+            </li>
+        </ul>
+        <a class="header-logo" href="index.html">
+            SPARK 2.0
+        </a>
+        <ul class="nav nav-list pull-right">
+            <li>
+                <a class="menu-toggle" href="#search">
+                    <span class="access-hide">Search</span>
+                    <span class="icon icon-search icon-lg"></span>
+                    <span class="header-close icon icon-close icon-lg"></span>
+                </a>
+            </li>
+            <li>
+                <a class="menu-toggle" href="#profile">
+                    <span class="access-hide">User</span>
+                    <span class="avatar avatar-sm"><img alt="" src="Material/images/users/avatar-001.jpg"></span>
+                    <span class="header-close icon icon-close icon-lg"></span>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="menu menu-right menu-search" id="search">
+        <div class="menu-scroll">
+            <div class="menu-wrap">
+                <div class="menu-top">
+                    <div class="menu-top-info">
+                        <form class="form-group-alt menu-top-form">
+                            <label class="access-hide" for="menu-search">Search</label>
+                            <input class="form-control form-control-inverse menu-search-focus" id="menu-search" placeholder="Search" type="search">
+                            <button class="access-hide" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-content-inner">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="menu menu-right" id="profile">
+        <div class="menu-scroll">
+            <div class="menu-wrap">
+                <div class="menu-top">
+                    <div class="menu-top-img">
+                        <img alt="" src="Material/images/samples/landscape.jpg">
+                    </div>
+                    <div class="menu-top-info">
+                        <a class="menu-top-user" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt" src="Material/images/users/avatar-001.jpg"></span><span>User</span></a>
+                    </div>
+                </div>
+                <div class="menu-content">
+                    <ul class="nav">
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon icon-account-box"></span>Profile Settings</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" data-bind="events :{click:dashModel.logout}"><span class="icon icon-exit-to-app"></span>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="menu" id="menu">
+        <div class="menu-scroll">
+            <div class="menu-wrap">
+                <div class="menu-content">
+                    <ul class="nav">
+                        <li>
+                            <a href="index.html">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="index.html">Checklist</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <div class="content-inner">
+            <div class="container">
+                <div class="row">
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-10 col-sm-12">
+                        <h2 class="content-sub-heading">Checklist</h2>
+                        <nav class="tab-nav">
+                            <ul class="nav nav-justified">
+                                <li class="active">
+                                    <a class="waves-effect" data-toggle="tab" href="#first-tab">
+                                        <i class="avatar-red" style="border-radius:50%;padding:0.3em"><span class="icon icon-warning"></span></i> Critical
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="waves-effect" data-toggle="tab" href="#second-tab" id="assignmenttab">
+                                        <i class="avatar-green" style="border-radius:50%;padding:0.3em"><span class="icon icon-assignment"></span></i> Assignment
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="first-tab">
+                                <div id="critical-listview" class="tile-wrap"></div>
+                            </div>
+                            <div class="tab-pane fade" id="second-tab">
+                                <h2 class="content-sub-heading">
+                                    <span class="avatar avatar-sm avatar-green pull-left">
+                                        <img src="components/dash/scale-512.png" />
+                                    </span>Weightage
+                                </h2>
+                                <div id="Weightage-listview" class="tile-wrap"></div>
+                                <h2 class="content-sub-heading">
+                                    <span class="avatar avatar-sm avatar-transparent pull-left"><img src="components/dash/highfive.png" /></span>High Five
+                                </h2>
+                                <div id="Hi-fi-listview" class="tile-wrap"></div>
+                                <h2 class="content-sub-heading"><span class="avatar avatar-sm pull-left"><img src="components/dash/focus.png" /></span>Focus of the week</h2>
+                                <div id="focus-listview" class="tile-wrap"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#assignmenttab").on("click", function () {
+            $("custom-listview").removeClass("tile-wrap-animation").addClass("tile-wrap-animation");
+        });
+    });
+
+</script>
+
+<script type="text/x-kendoe-template" id="criticalTemplate">
+    # for(var i=0;i < data.length;i++){#
+    <div class="tile tile-collapse">
+        <div class="tile-toggle" data-target="\#tile-collapse-${i}" data-toggle="tile">
+            <div class="pull-left tile-side">
+                <div class="avatar avatar-red avatar-sm">
+                    <span class="icon icon-alarm"></span>
+                </div>
+            </div>
+            <div class="tile-action" data-ignore="tile">
+                <ul class="nav nav-list pull-right">
+                    <li>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tile-inner">
+                <div class="text-overflow">${data[i].name}</div>
+            </div>
+        </div>
+        <div class="tile-active-show collapse" id="tile-collapse-${i}">
+            <div class="tile-sub">
+                <br />
+                <strong>Additional Information</strong> <br />
+                <b>Schedule:</b> ${data[i].timing} <br />
+                <b>Department:</b> ${data[i].dept}<br />
+                <b>Task:</b> ${data[i].task}<br />
+                <b>Critical Limit:</b> ${data[i].limit}
+            </div>
+            <div class="tile-footer">
+                <ul class="nav nav-list pull-left">
+                    <li>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="icon icon-check"></span>&nbsp;View</a>
+                    </li>
+                    <li>
+                        <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    #}#
+</script>
+
+
+<script type="text/x-kendo-template" id="customListViewTemplate">
+
+    # for(var i=0;i < data.length;i++){#
+
+    <div class="tile">
+        <div class="pull-left tile-side">
+            <div class="avatar avatar-blue avatar-sm">
+                <span class="icon icon-list"></span>
+            </div>
+        </div>
+        <div class="tile-action tile-action-show">
+            <ul class="nav nav-list pull-right">
+                <li>
+                    <a href="index.html\#components/heat/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tile-inner">
+            <span class="text-overflow">${data[i].name}</span>
+        </div>
+    </div>
+    #}#
+
+
+</script>
+
+<script type="text/x-kendoe-template" id="weightageListViewTemplate">
+    # for(var i=0;i < data.length;i++){#
+    <div class="tile tile-collapse">
+        <div class="tile-toggle" data-target="\#weightage-collapse-${i}" data-toggle="tile">
+            <div class="pull-left tile-side">
+                <div class="avatar avatar-sm">
+                    <img src="components/dash/chicken-icon.png" />
+                </div>
+            </div>
+            <div class="tile-action" data-ignore="tile">
+                <ul class="nav nav-list pull-right">
+                    <li>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tile-inner">
+                <div class="text-overflow">${data[i].name}</div>
+            </div>
+        </div>
+        <div class="tile-active-show collapse" id="weightage-collapse-${i}">
+            <div class="tile-sub">
+                <br />
+                <strong>Additional Information</strong> <br />
+                <b>Schedule:</b> ${data[i].timing} <br />
+                <b>Department:</b> ${data[i].dept}<br />
+                <b>Task:</b> ${data[i].task}<br />
+                <b>Critical Limit:</b> ${data[i].limit}
+            </div>
+            <div class="tile-footer">
+                <ul class="nav nav-list pull-left">
+                    <li>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="icon icon-check"></span>&nbsp;View</a>
+                    </li>
+                    <li>
+                        <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    #}#
+</script>
+
+<script type="text/x-kendoe-template" id="hiFiListViewTemplate">
+    # for(var i=0;i < data.length;i++){#
+    <div class="tile tile-collapse">
+        <div class="tile-toggle" data-target="\#hifi-collapse-${i}" data-toggle="tile">
+            <div class="pull-left tile-side">
+                <div class="avatar avatar-blue avatar-sm">
+                    <img src="components/dash/fridge-icon.png" />
+                </div>
+            </div>
+            <div class="tile-action" data-ignore="tile">
+                <ul class="nav nav-list pull-right">
+                    <li>
+                        <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tile-inner">
+                <div class="text-overflow">${data[i].name} - ${i+1}</div>
+            </div>
+        </div>
+        <div class="tile-active-show collapse" id="hifi-collapse-${i}">
+            <div class="tile-sub">
+                <br />
+                <strong>Additional Information</strong> <br />
+                <b>Schedule:</b> ${data[i].timing} <br />
+                <b>Department:</b> ${data[i].dept}<br />
+                <b>Task:</b> ${data[i].task}<br />
+                <b>Critical Limit:</b> ${data[i].limit}
+            </div>
+            <div class="tile-footer">
+                <ul class="nav nav-list pull-left">
+                    <li>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="icon icon-check"></span>&nbsp;View</a>
+                    </li>
+                    <li>
+                        <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    #}#
+</script>
+
+<script type="text/x-kendoe-template" id="focusListViewTemplate">
+    # for(var i=0;i < data.length;i++){#
+    <div class="tile tile-collapse">
+        <div class="tile-toggle" data-target="\#focus-collapse-${i}" data-toggle="tile">
+            <div class="pull-left tile-side">
+                <div class="avatar avatar-red avatar-sm">
+                    <span class="icon icon-person"></span>
+                </div>
+            </div>
+            <div class="tile-inner">
+                <div class="text-overflow">
+                    ${data[i].name} <br />
+                    <i style="color:red">With another Associate</i>
+                </div>
+            </div>
+        </div>
+        <div class="tile-active-show collapse" id="focus-collapse-${i}">
+            <div class="tile-sub">
+                <br />
+                <strong>Additional Information</strong> <br />
+                <b>Schedule:</b> ${data[i].timing} <br />
+                <b>Department:</b> ${data[i].dept}<br />
+                <b>Task:</b> ${data[i].task}<br />
+                <b>Critical Limit:</b> ${data[i].limit}
+            </div>
+            <div class="tile-footer">
+                <ul class="nav nav-list pull-left">
+                    <li>
+                        <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    #}#
+</script>

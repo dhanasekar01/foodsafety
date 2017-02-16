@@ -1,0 +1,154 @@
+<div data-role="view" data-title="pin"  data-layout="main-nonav" data-model="app.pin" data-show="app.pin.onShow" data-after-show="app.pin.afterShow" id="pinScreen" class="screen">
+    <header class="header">
+        <span class="header-logo">
+            Walmart <img src="Material/images/walmartlogo.png" style="display:inline;width:1.5em;height:1.5em;"/> SPARK 2.0
+        </span>
+    </header>
+    <div class="content">
+        <div class="content-heading">
+        </div>
+        <div class="content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-push-4 col-md-push-3 col-md-5 col-sm-5 col-sm-push-3">
+                        <div class="card-wrap">
+                            <div class="card">
+                                <div class="card-main">
+                                    <div class="card-header">
+                                        <div class="card-inner">
+                                            <h1 class="card-heading">Enable Pin Login</h1>
+                                        </div>
+                                    </div>
+                                    <form class="form col-sm-push-1">
+                                        <div class="row align-center">
+                                            <div class="col-sm-10 col-sm-push-1">
+                                                <table class="table text-center" id="pininput">
+                                                    <tr>
+                                                        <td><input class="form-control" id="a" maxlength="1" data-bind="value: pinModel.a" onkeyup="moveOnMax(this,'b')" type="password"></td>
+                                                        <td><input class="form-control" id="b" maxlength="1" data-bind="value: pinModel.b" onkeyup="moveOnMax(this,'c')" type="password"></td>
+                                                        <td><input class="form-control" id="c" maxlength="1" data-bind="value: pinModel.c" onkeyup="moveOnMax(this,'d')" type="password"></td>
+                                                        <td><input class="form-control" id="d" maxlength="1" data-bind="value: pinModel.d" type="password"></td>
+                                                        <td><a class="waves-button waves-effect" href="javascript:void(0);" onclick="deleteme()"><span class="icon icon-lg icon-backspace"></span></a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row align-center">
+                                            <div class="col-sm-10 col-sm-push-1">
+                                                <table class="table text-center" id="pinkeyboard">
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,1)">1</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,2)">2</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,3)">3</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,4)">4</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,5)">5</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,6)">6</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,7)">7</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,8)">8</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,9)">9</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,0)">0</button>
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #pininput td, #pinkeyboard td{
+        border: none;
+    }
+
+    #pininput input{
+        text-align: center;
+        font-size: 30px;
+    }
+    #pinkeyboard button {
+        border-radius: 999px;
+        width: 3em;
+        height:3em;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        moveOnMax = function (field, nextFieldID) {
+            if (field.value.length == 1) {
+            }
+        }
+
+        var arr = ["a", "b", "c", "d"];
+
+        clickme = function (field, value) {
+            for (var i = 0; i < arr.length; i++) {
+                var field1 = $("#" + arr[i]);
+                var fieldVal = field1.val();
+                if (fieldVal.length == 1) {
+                    document.getElementById(arr[i+1]).focus();
+                } else {
+                    field1.val(value);
+                    if (i + 1 == arr.length) {
+                        var pin = "";
+                        for (var j = 0; j < arr.length; j++) {
+                            var field2 = $("#" + arr[j]).val();
+                            pin += field2;
+                           
+                        }
+                        localStorage.setItem("setpin", pin);
+                        app.mobileApp.navigate("components/cpin/view.html");
+                    } 
+                    break;
+                }
+            }
+        }
+
+        deleteme = function () {
+            for (var i = arr.length - 1; i >= 0 ; i--) {
+                var field1 = $("#" + arr[i]);
+                var fieldVal = field1.val();
+                if (fieldVal.length == 1) {
+                    field1.val("");
+                    break;
+                }
+            }
+        }
+    });
+</script>

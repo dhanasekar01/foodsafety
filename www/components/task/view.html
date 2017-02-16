@@ -1,0 +1,25 @@
+﻿<div data-role="view" data-title="SPARK" data-layout="main-nonav" data-show="app.task.onShow" data-after-show="app.task.afterShow" data-model="app.task" id="dashScreen" class="screen">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <span>Task</span>
+            <a data-role="backbutton" data-align="left">Back</a>
+        </div>
+    </header>
+    <div class="content">
+        
+        <div class="content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-sm-12">
+                        <h2 class="content-sub-heading"><span data-bind="text: taskModel.taskname"></span></h2>
+                        <ul id="list-edit-listview"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="itemTemplate" type="text/x-kendo-template">
+    <a class="km-listview-link"> #=name #</a>
+</script>
