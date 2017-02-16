@@ -12,11 +12,51 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-sm-12">
-                        <h2 class="content-sub-heading"><span data-bind="text: subtaskModel.subtaskname"></span></h2>
-
+                        <h2 class="content-sub-heading">Checklist Action</h2>
+                        <div class="card-wrap">
+                            <div class="row">
+                                <div id="subtaskaction" class="col-lg-10 col-sm-10"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script  type="text/x-kendoe-template" id="subtasktemplate">
+    <div class="card card-blue">
+        <div class="card-main">
+            <div class="card-inner">
+                <h2 class="content-sub-heading"><b>${data.name}</b></h2>
+                <p>
+                    # if(type == "iot") { #
+                    <a href="javascript:void(0)" class="btn btn-lg">
+                        <span class="avatar-sm avatar avatar-transparent avatar-inline">
+                            <img src="components/subtask/thermometer.png" />
+                        </span>&nbsp;<span class="text-blue">Read Temp</span>
+                    </a>
+                    #}#
+                </p>
+                <br/>
+                <p>
+                    <b>Critcal Limit : <span style="color:red">${data.limit}</span></b><br>
+                    <table class="table-hover table">
+                        <tr><th>Corrective Action</th></tr>
+                        #for(var i =0 ;i < data.action.length ; i++){#
+                            <tr><td>#=data.action[i]#</td></tr>
+                        #}#
+                    </table>
+                </p>
+            </div>
+            <div class="card-action">
+                <ul class="nav nav-list pull-left">
+                    <li>
+                        <a href="javascript:void(0)"><span class="icon icon-check text-blue"></span>&nbsp;<span class="text-blue">OK</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>

@@ -19,7 +19,7 @@
                                             <h1 class="card-heading">PIN Login</h1>
                                         </div>
                                     </div>
-                                    <form class="form col-sm-push-1">
+                                    <form class="form col-sm-push-1" id="loginpin">
                                         <div class="row align-center">
                                             <div class="col-sm-10 col-sm-push-1">
                                                 <table class="table text-center" id="pininput">
@@ -38,35 +38,35 @@
                                                 <table class="table text-center" id="pinkeyboard">
                                                     <tr>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue  pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,1)">1</button>
+                                                            <a class="btn btn-flat btn-blue  pinkeyboard waves-button waves-effect"  onclick="clickme(this,1)">1</a>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,2)">2</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,2)">2</a>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,3)">3</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,4)">4</button>
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,5)">5</button>
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,6)">6</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect"  onclick="clickme(this,3)">3</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,7)">7</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect"  onclick="clickme(this,4)">4</a>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,8)">8</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,5)">5</a>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,9)">9</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect"  onclick="clickme(this,6)">6</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,7)">7</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,8)">8</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,9)">9</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -74,10 +74,10 @@
                                                             &nbsp;
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" type="button" onclick="clickme(this,0)">0</button>
+                                                            <a class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" onclick="clickme(this,0)">0</a>
                                                         </td>
                                                         <td>
-                                                            &nbsp;
+                                                            <button class="btn btn-flat btn-blue pinkeyboard waves-button waves-effect" id="resetme" type="reset">Clear</button>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -102,7 +102,7 @@
         text-align: center;
         font-size: 30px;
     }
-    #pinkeyboard button {
+    #pinkeyboard a {
         border-radius: 999px;
         width: 3em;
         height:3em;
@@ -134,9 +134,11 @@
 
                         var pin = localStorage.getItem("setpin");
                         if (pin == pinlogin) {
+                            $("#resetme").click();
                             app.mobileApp.navigate("components/dash/view.html");
                         } else {
                             app.showNotification("PIN incorrect");
+                            $("#resetme").click();
                         }
                     }
 

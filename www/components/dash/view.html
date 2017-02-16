@@ -1,4 +1,4 @@
-﻿<div data-role="view" data-title="SPARK" data-layout="main-nonav" data-show="app.dash.onShow" data-after-show="app.dash.afterShow" data-model="app.dash" id="dashScreen" class="screen">
+﻿<div data-role="view" data-title="SPARK" data-layout="main-nonav" data-reload="true" data-show="app.dash.onShow" data-after-show="app.dash.afterShow" data-model="app.dash" id="dashScreen" class="screen">
     <header class="header">
         <ul class="nav nav-list pull-left">
             <li>
@@ -169,7 +169,7 @@
             <div class="tile-action" data-ignore="tile">
                 <ul class="nav nav-list pull-right">
                     <li>
-                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
                     </li>
                     <li>
                         <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
@@ -192,7 +192,7 @@
             <div class="tile-footer">
                 <ul class="nav nav-list pull-left">
                     <li>
-                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="icon icon-check"></span>&nbsp;View</a>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="icon icon-check"></span>&nbsp;View</a>
                     </li>
                     <li>
                         <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>
@@ -218,7 +218,7 @@
         <div class="tile-action tile-action-show">
             <ul class="nav nav-list pull-right">
                 <li>
-                    <a href="index.html\#components/heat/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                    <a href="index.html\#components/heat/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
                 </li>
                 <li>
                     <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
@@ -246,7 +246,7 @@
             <div class="tile-action" data-ignore="tile">
                 <ul class="nav nav-list pull-right">
                     <li>
-                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="access-hide">Edit</span><span class="icon icon-edit"></span></a>
                     </li>
                     <li>
                         <a href="javascript:void(0)"><span class="access-hide">Sync</span><span class="icon icon-refresh"></span></a>
@@ -269,7 +269,7 @@
             <div class="tile-footer">
                 <ul class="nav nav-list pull-left">
                     <li>
-                        <a href="index.html\#components/task/view.html?name=${data[i].name}"><span class="icon icon-check"></span>&nbsp;View</a>
+                        <a href="index.html\#components/task/view.html?name=${data[i].name}&dept=${data[i].dept}"><span class="icon icon-check"></span>&nbsp;View</a>
                     </li>
                     <li>
                         <a data-dismiss="tile" href="javascript:void(0)"><span class="icon icon-close"></span>&nbsp;Dismiss</a>

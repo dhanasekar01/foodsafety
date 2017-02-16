@@ -9,7 +9,8 @@ app.localization.registerView('task');
 (function (parent) {
 
     var taskModel = kendo.observable({
-        taskname: ""
+        taskname: "",
+        tasktype :""
     });
 
     var data = [
@@ -19,6 +20,7 @@ app.localization.registerView('task');
            dept: "Meat/Sea Food",
            task: "Freezer Temperature Check",
            limit: "-18°C",
+           type:"normal",
            items: [
                { name: "Fish Filets" },
                { name: "Turkeys" },
@@ -32,6 +34,7 @@ app.localization.registerView('task');
            dept: "Dairy",
            task: "Dairy Temperature Check",
            limit: "Greater than 4°C",
+           type:"iot",
            items: [
                { name: "Milk" },
                { name: "Juice" },
@@ -45,11 +48,24 @@ app.localization.registerView('task');
            dept: "Deli",
            task: "Service Deli Temperature Check",
            limit: "Greater than 4°C",
+           type:"iot",
            items: [
                { name: "Service Case salad" },
                { name: "Packaged Sliced Meat" },
                { name: "Pizzas/Pasta" },
                { name: "Dips/Salad" }
+           ]
+       },
+       {
+           name: "Chicken Cook",
+           timing: "6am to 8pm Rotisserie",
+           dept: "Deli",
+           task: "Cook Temperature",
+           limit: "Less Than 85°C",
+           type:"normal",
+           items: [
+               { name: "Cook Temp bird 1" },
+               { name: "Cook Temp bird 2" }
            ]
        }
     ];
@@ -57,7 +73,8 @@ app.localization.registerView('task');
     function navigate(e) {
         var target = $(e.touch.target);
         var outerText = target.closest("[data-role=listview-link]").context.outerText;
-        app.mobileApp.navigate("components/subtask/view.html?name=" + outerText);
+        outerText = outerText.replace(/(\r\n|\n|\r)/gm, "");
+        app.mobileApp.navigate("components/subtask/view.html?name=" + outerText + "&type=" + taskModel.tasktype);
     }
 
     function listViewInit(e, items) {
@@ -82,7 +99,9 @@ app.localization.registerView('task');
         taskModel.set("taskname", name + " - " + dept);
         $.each(data, function (key, val) {
             if (val.name == name && val.dept == dept) {
-                listViewInit(e, val.items)
+                taskModel.set("tasktype", val.type);
+                listViewInit(e, val.items);
+
             }
         });
     });

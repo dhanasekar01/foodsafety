@@ -34,7 +34,7 @@ app.localization.registerView('dash');
     ];
 
     var criticalData = [
-       { name: "Frozen Temp Check", timing: "6am to 11pm Daily", dept: "Meat/Sea food", task: "Freezer Temperature Check", limit: "-18°C" },
+       { name: "Frozen Temp Check", timing: "6am to 11pm Daily", dept: "Meat/Sea Food", task: "Freezer Temperature Check", limit: "-18°C" },
     ];
 
     function critical() {
