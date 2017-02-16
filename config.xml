@@ -22,6 +22,8 @@
 
     <content src="index.html" />
 	<name>Spark 2.0</name>
+	
+	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
     <!-- Whitelist docs: https://github.com/apache/cordova-plugin-whitelist -->
 
