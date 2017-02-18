@@ -1,6 +1,7 @@
 ﻿<div data-role="view" data-title="SPARK" data-layout="main-nonav" data-show="app.subtask.onShow" data-after-show="app.subtask.afterShow" data-model="app.subtask" id="dashScreen" class="screen">
     <header data-role="header">
         <div data-role="navbar" class="header-text">
+            <a data-role="button" class="nav-button" data-align="right" data-icon="home" href="#components/home/view.html"></a>
             <span>Sub Task</span>
             <a data-role="backbutton" data-align="left">Back</a>
         </div>
@@ -238,7 +239,7 @@
                                             <div class="form-group form-group-blue">
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-3 col-sm-4">
-                                                        <label class="form-label" for="text-blue">Temperature Reading</label>
+                                                        <label class="form-label" for="text-blue">Temperature Reading <small>(in °C)</small></label>
                                                     </div>
                                                     <div class="col-lg-4 col-md-6 col-sm-8">
                                                         <input type="text" class="form-control" id="iot-value" style="width:50%;" value="-4" />
@@ -246,7 +247,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-icon">
+                                            <div class="form-group form-group-green form-group-icon">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-sm-8">
                                                         <div class="media">
@@ -286,7 +287,7 @@
                                             <div class="form-group form-group-blue">
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-3 col-sm-4">
-                                                        <label class="form-label" for="text-blue">Temperature Reading</label>
+                                                        <label class="form-label" for="text-blue">Temperature Reading <small>(in °C)</small></label>
                                                     </div>
                                                     <div class="col-lg-4 col-md-6 col-sm-8">
                                                         <input type="text" class="form-control" id="gauge-value" style="width:50%;" value="-4" />
@@ -324,7 +325,7 @@
                 <br />
 
                 <p>
-                    <b>Critcal Limit : <span style="color:red">${data.limit}</span></b><br>
+                    <b>Critical Limit (action threshold) : <span style="color:red">${data.limit}</span></b><br>
                     <table class="table-hover table">
                         <tr><th>Corrective Action</th></tr>
                         #for(var i =0 ;i < data.action.length ; i++){#

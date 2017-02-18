@@ -91,26 +91,28 @@ app.localization.registerView('subtask');
 
     function createSubtask(data, type) {
         var subdata = {};
-       
+        var currentdate = new Date();
+        var datetime = currentdate.getDate() + "/"
+                        + (currentdate.getMonth() + 1) + "/"
+                        + currentdate.getFullYear() + " @ "
+                        + currentdate.getHours() + ":"
+                        + currentdate.getMinutes() + ":"
+                        + currentdate.getSeconds();
+
         if (type == "iot") {
+            devicedata = { device: "Refrigerator 1", temp: "-4°C", hum: "75%", time: datetime };
             subdata = {
                 data: data,
                 type: type,
                 device : devicedata
             }
         } else {
-            var currentdate = new Date();
-            var datetime =  currentdate.getDate() + "/"
-                            + (currentdate.getMonth() + 1) + "/"
-                            + currentdate.getFullYear() + " @ "
-                            + currentdate.getHours() + ":"
-                            + currentdate.getMinutes() + ":"
-                            + currentdate.getSeconds();
-            devicedata = { device: "TMD 1", temp: "-4°C", hum: "75%", time: datetime };
+           
+            var devicedata1 = { device: "TMD 1", temp: "-4°C", hum: "75%", time: datetime };
             subdata = {
                 data: data,
                 type: type,
-                device: devicedata
+                device: devicedata1
             }
         }
         var template = kendo.template($("#subtasktemplate").html());
