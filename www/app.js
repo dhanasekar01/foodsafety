@@ -78,11 +78,7 @@
             localStorage.setItem("userName", userName);
             localStorage.setItem('displayname', displayName);
             var profile = localStorage.getItem('pinsetup' + userName);
-            if (profile == "COMPLETED") {
-                app.mobileApp.navigate("components/dash/view.html?name=" + displayName);
-            } else {
-                app.mobileApp.navigate("components/pin/view.html");
-            }
+            app.mobileApp.navigate("components/dash/view.html?name=" + displayName);
         }
     };
 
@@ -92,11 +88,7 @@
             var displayName = localStorage.getItem("displayName");
             var profile = localStorage.getItem('pinsetup' + username);
             if (username) {
-                if (profile == "COMPLETED") {
-                    app.mobileApp.navigate("components/pinlogin/view.html?name=" + displayName);
-                } else {
-                    app.mobileApp.navigate("components/pin/view.html");
-                }
+                app.mobileApp.navigate("components/dash/view.html?name=" + displayName);
             }
         }
     }

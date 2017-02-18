@@ -7,7 +7,7 @@
     </header>
 
     <div class="content">
-        
+
         <div class="content-inner">
             <div class="container">
                 <div class="row">
@@ -25,27 +25,315 @@
     </div>
 </div>
 
-<script  type="text/x-kendoe-template" id="subtasktemplate">
+<script>
+    function enableiot(e) {
+        $(e).hide();
+        $("#el-loading-3").removeClass("access-hide");
+        createSparklines(e);
+        setTimeout(function () {
+            $("#el-loading-3").addClass("el-loading-done");
+        }, 3000);
+    }
+
+    function enableTemp(e) {
+        $(e).hide();
+        $("#el-loading-3").removeClass("access-hide");
+        createGauges();
+        setTimeout(function () {
+            $("#el-loading-3").addClass("el-loading-done");
+            setTimeout(function () {
+                $("#gauge").data("kendoLinearGauge").value(-7);
+                $("#gauge-value").val(-7);
+            }, 2000);
+        }, 3000);
+
+    }
+
+    function submit() {
+        kendo.confirm("Checklist Submitted. Do you want to Sync Now?").then(function () {
+            app.showNotification("Checklist sent to Sync queue.");
+        }, function () {
+            app.showNotification("Sync can be done at checklist page also.");
+        });
+        $("li.k-button").css('width', '49%');
+    }
+
+    function createGauges() {
+        var value = $("#gauge-value").val();
+
+        $("#gauge").kendoLinearGauge({
+            pointer: {
+                value: value
+            },
+
+            scale: {
+                majorUnit: 20,
+                minorUnit: 2,
+                min: -40,
+                max: 40,
+                vertical: true,
+                ranges: [
+                    {
+                        from: -40,
+                        to: -20,
+                        color: "#2798df"
+                    }, {
+                        from: 30,
+                        to: 45,
+                        color: "#ffc700"
+                    }, {
+                        from: 45,
+                        to: 60,
+                        color: "#c20000"
+                    }
+                ]
+            }
+        });
+
+
+
+    }
+
+    function createSparklines(e) {
+
+        // User-set Sparkline type
+        $("#temp-log").kendoSparkline({
+            type: "column",
+            data: [
+                16, 17, 18, 19, 20, 21, 21, 22, 23, 22,
+                20, 18, 17, 17, 16, 16, 17, 18, 19, 20,
+                21, 22, 23, 25, 24, 24, 22, 22, 23, 22,
+                22, 21, 16, 15, 15, 16, 19, 20, 20, 21
+            ],
+            tooltip: {
+                format: "{0} &deg;F"
+            }
+        });
+
+        $("#hum-log").kendoSparkline({
+            type: "area",
+            data: [
+                71, 70, 69, 68, 65, 60, 55, 55, 50, 52,
+                73, 72, 72, 71, 68, 63, 57, 58, 53, 55,
+                63, 59, 61, 64, 58, 53, 48, 48, 45, 45,
+                63, 64, 63, 67, 58, 56, 53, 59, 51, 54
+            ],
+            tooltip: {
+                format: "{0} %"
+            }
+        });
+
+        $("#temp-range").kendoSparkline({
+            type: "bullet",
+            data: [5, 4],
+            valueAxis: {
+                min: 0,
+                max: 30,
+                plotBands: [
+                    {
+                        from: 0, to: 3, color: "#787878", opacity: 0.15
+                    }, {
+                        from: 3, to: 7, color: "#787878", opacity: 0.3
+                    }, {
+                        from: 7, to: 22, color: "#787878", opacity: 0.15
+                    }, {
+                        from: 22, to: 30, color: "#787878", opacity: 0.15
+                    }]
+            },
+            tooltip: {
+                visible: true
+            }
+        });
+    }
+
+</script>
+
+<script type="text/x-kendoe-template" id="subtasktemplate">
     <div class="card card-blue">
         <div class="card-main">
             <div class="card-inner">
                 <h2 class="content-sub-heading"><b>${data.name}</b></h2>
                 <p>
                     # if(type == "iot") { #
-                    <a href="javascript:void(0)" class="btn btn-lg">
+                    <a href="javascript:void(0)" onclick="enableiot(this);" class="btn btn-lg">
+                        <span class="avatar-sm avatar avatar-transparent avatar-inline">
+                            <img src="components/subtask/thermometer.png" />
+                        </span>&nbsp;<span class="text-blue">Read Temp</span>
+                    </a>
+                    #} else { #
+                    <a href="javascript:void(0)" onclick="enableTemp(this);" class="btn btn-lg">
                         <span class="avatar-sm avatar avatar-transparent avatar-inline">
                             <img src="components/subtask/thermometer.png" />
                         </span>&nbsp;<span class="text-blue">Read Temp</span>
                     </a>
                     #}#
                 </p>
-                <br/>
+                <div class="el-loading access-hide" id="el-loading-3">
+                    <div class="el-loading-indicator">
+                        <div class="progress progress-position-absolute-top">
+                            <div class="load-bar">
+                                <div class="load-bar-base">
+                                    <div class="load-bar-content">
+                                        <div class="load-bar-progress"></div>
+                                        <div class="load-bar-progress load-bar-progress-alt"></div>
+                                        <div class="load-bar-progress load-bar-progress-purple"></div>
+                                        <div class="load-bar-progress load-bar-progress-red"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="load-bar">
+                                <div class="load-bar-base">
+                                    <div class="load-bar-content">
+                                        <div class="load-bar-progress"></div>
+                                        <div class="load-bar-progress load-bar-progress-red"></div>
+                                        <div class="load-bar-progress load-bar-progress-purple"></div>
+                                        <div class="load-bar-progress load-bar-progress-alt"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    # if(type == "iot") { #
+                    <div class="card-wrap">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-main">
+                                        <div class="card-inner">
+                                            <h2 class="content-sub-heading">Iot Device - ${device.device}</h2>
+                                            <div class="climate">
+                                                <h4>
+                                                    Today's Temperature control history
+                                                </h4>
+                                                <table class="history">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>Current Temperture</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="spark"><span id="temp-log"></span></td>
+                                                        <td class="value"> ${device.temp}<span></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>Current Humidity</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="spark"><span id="hum-log"></span></td>
+                                                        <td class="value"> ${device.hum}<span></span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="temperature">
+                                                <h4>
+                                                    Temperature control
+                                                </h4>
+                                                <div class="stats">
+                                                    <span id="temp-range"></span>
+                                                </div>
+                                            </div><br />
+                                            <p>
+                                                <span class="icon icon-alarm"></span> <b>TimeStamp:</b>  ${device.time} <br />
+                                            </p>
+                                            <div class="form-group form-group-blue">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="text-blue">Temperature Reading</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-8">
+                                                        <input type="text" class="form-control" id="iot-value" style="width:50%;" value="-4" />
+                                                        <span class="form-help form-help-msg text-blue">Overriding the Temperature is enabled</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-icon">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-sm-8">
+                                                        <div class="media">
+                                                            <div class="media-object pull-left">
+                                                                <label class="form-icon-label" for="input-icon-comment"><span class="access-hide">Comments</span><span class="icon icon-comment"></span></label>
+                                                            </div>
+                                                            <div class="media-inner">
+                                                                <textarea class="form-control textarea-autosize" id="input-icon-comment" placeholder="Comments" rows="1"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    #} else {#
+
+                    <div class="card-wrap">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-main">
+                                        <div class="card-inner">
+                                            <h2 class="content-sub-heading">TMD Device - ${device.device}</h2>
+                                            <div id="gauge-container">
+                                                <div id="gauge"></div>
+                                            </div>
+                                            <br />
+                                            <p>
+                                                <span class="icon icon-alarm"></span> <b>TimeStamp:</b>  ${device.time} <br />
+                                            </p>
+                                            <div class="form-group form-group-blue">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="text-blue">Temperature Reading</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-8">
+                                                        <input type="text" class="form-control" id="gauge-value" style="width:50%;" value="-4" />
+                                                        <span class="form-help form-help-msg text-blue">Overriding the Temperature is enabled</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-icon">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-sm-8">
+                                                        <div class="media">
+                                                            <div class="media-object pull-left">
+                                                                <label class="form-icon-label" for="input-icon-comment"><span class="access-hide">Comments</span><span class="icon icon-comment"></span></label>
+                                                            </div>
+                                                            <div class="media-inner">
+                                                                <textarea class="form-control textarea-autosize" id="input-icon-comment" placeholder="Comments" rows="1"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    #}#
+                </div>
+                <br />
+
                 <p>
                     <b>Critcal Limit : <span style="color:red">${data.limit}</span></b><br>
                     <table class="table-hover table">
                         <tr><th>Corrective Action</th></tr>
                         #for(var i =0 ;i < data.action.length ; i++){#
-                            <tr><td>#=data.action[i]#</td></tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="km-checkbox" id="action-${i}" />
+                                <label class="km-checkbox-label" style="font-size:1em;color:black" for="action-${i}">&nbsp; #=data.action[i]#</label>
+                            </td>
+                        </tr>
                         #}#
                     </table>
                 </p>
@@ -53,10 +341,143 @@
             <div class="card-action">
                 <ul class="nav nav-list pull-left">
                     <li>
-                        <a href="javascript:void(0)"><span class="icon icon-check text-blue"></span>&nbsp;<span class="text-blue">OK</span></a>
+                        <a class="btn btn-sm btn-blue waves-button" onclick="submit()" href="javascript:void(0)"><span class="icon icon-check text-white"></span>&nbsp;<span class="text-white">Submit</span></a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </script>
+
+<style>
+    .temperature, .conditioner {
+        margin: 0;
+        padding: 30px 0 0 0;
+    }
+
+    .history {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .history td {
+            padding: 0;
+            vertical-align: bottom;
+        }
+
+            .history td.spark {
+                line-height: 30px;
+            }
+
+            .history td.value {
+                font-size: 1.6em;
+                font-weight: normal;
+                line-height: 20px;
+            }
+
+                .history td.value span {
+                    font-size: .5em;
+                    vertical-align: top;
+                    line-height: 30px;
+                }
+
+    .stats {
+        text-align: center;
+    }
+
+    .pie-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+        .pie-list li {
+            display: inline-block;
+            text-align: center;
+            width: 34px;
+            font-size: 10px;
+        }
+
+    #stats-mon,
+    #stats-tue,
+    #stats-wed,
+    #stats-thu,
+    #stats-fri,
+    #stats-sat,
+    #stats-sun {
+        display: block;
+        width: 34px;
+        line-height: 30px;
+    }
+
+    #temp-range {
+        width: 100%;
+        line-height: 30px;
+    }
+</style>
+<style>
+    .temperature, .conditioner {
+        margin: 0;
+        padding: 30px 0 0 0;
+    }
+
+    .history {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .history td {
+            padding: 0;
+            vertical-align: bottom;
+        }
+
+            .history td.spark {
+                line-height: 30px;
+            }
+
+            .history td.value {
+                font-size: 1.6em;
+                font-weight: normal;
+                line-height: 20px;
+            }
+
+                .history td.value span {
+                    font-size: .5em;
+                    vertical-align: top;
+                    line-height: 30px;
+                }
+
+    .stats {
+        text-align: center;
+    }
+
+    .pie-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+        .pie-list li {
+            display: inline-block;
+            text-align: center;
+            width: 34px;
+            font-size: 10px;
+        }
+
+    #stats-mon,
+    #stats-tue,
+    #stats-wed,
+    #stats-thu,
+    #stats-fri,
+    #stats-sat,
+    #stats-sun {
+        display: block;
+        width: 34px;
+        line-height: 30px;
+    }
+
+    #temp-range {
+        width: 100%;
+        line-height: 30px;
+    }
+</style>
